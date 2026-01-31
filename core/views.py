@@ -11,7 +11,7 @@ if GENAI_API_KEY != "YOUR_API_KEY_HERE":
     genai.configure(api_key=GENAI_API_KEY)
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 def technology(request):
     return render(request, 'technology.html')
