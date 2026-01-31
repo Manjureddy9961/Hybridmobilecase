@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Energy Analytics</h1>
+    <p>Real-time energy harvesting efficiency monitoring.</p>
+
+    <div class="sustainability-dashboard" style="margin-top: 30px; margin-bottom: 50px;">
+        <h2 style="text-align: center; margin-bottom: 30px;">Sustainability Impact</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+            <!-- Green Score Card -->
+            <div class="glass-panel" style="padding: 30px; text-align: center; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -50px; left: -50px; width: 100px; height: 100px; background: #28a745; filter: blur(50px); opacity: 0.3;">
+                </div>
+                <h3 style="color: #ccc; margin-bottom: 10px;">Green Score</h3>
+                <div style="font-size: 4rem; font-weight: bold; color: #28a745; margin: 10px 0;">
+                    <span id="green-score">0</span>
+                </div>
+                <p style="color: #aaa;">Top 5% of Users</p>
+                <div
+                    style="margin-top: 15px; background: rgba(40,167,69,0.2); color: #28a745; padding: 5px 15px; border-radius: 20px; display: inline-block;">
+                    <i class="fas fa-leaf"></i> Level 5 Eco-Warrior
+                </div>
+            </div>
+
+            <!-- CO2 Reduction Card -->
+            <div class="glass-panel"
+                style="padding: 30px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="color: #ccc; margin-bottom: 10px;">CO₂ Emissions Saved</h3>
+                <div style="font-size: 3rem; font-weight: bold; color: #00e5ff; margin: 10px 0;">
+                    <span id="co2-saved">0</span> kg
+                </div>
+                <p style="color: #aaa;">Equivalent to planting <span style="color: #fff;">3 trees</span></p>
+            </div>
+
+            <!-- Energy Mix Card -->
+            <div class="glass-panel"
+                style="padding: 30px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="color: #ccc; margin-bottom: 10px;">Green Energy Usage</h3>
+                <div style="font-size: 3rem; font-weight: bold; color: #ffc107; margin: 10px 0;">
+                    <span id="green-usage">0</span>%
+                </div>
+                <!-- Progress Bar -->
+                <div
+                    style="width: 100%; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 92%; height: 100%; background: linear-gradient(90deg, #ffeb3b, #ffc107);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate Numbers
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            animateValue(document.getElementById("green-score"), 0, 850, 2000);
+            animateValue(document.getElementById("co2-saved"), 0, 12, 2000);
+            animateValue(document.getElementById("green-usage"), 0, 92, 2000);
+        });
+    </script>
+
+    <div class="charts-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+        <div class="card">
+            <h3>Energy Source Contribution</h3>
+            <canvas id="sourceChart"></canvas>
+        </div>
+        <div class="card">
+            <h3>Source Distribution</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+        <div class="card" style="grid-column: 1 / -1;">
+            <h3>Simulated Battery Profile (24h)</h3>
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock %}

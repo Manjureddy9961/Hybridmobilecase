@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="padding: 50px 0;">
+    <div style="text-align: center; margin-bottom: 50px;">
+        <h1 style="font-size: 3rem; text-shadow: 0 0 20px rgba(0, 242, 254, 0.2);">System Notifications</h1>
+        <p style="color: #aaa;">Real-time alerts and system updates.</p>
+    </div>
+
+    <div class="glass-panel" style="padding: 0; overflow: hidden; max-width: 900px; margin: 0 auto;">
+
+        <!-- Toolbar -->
+        <div
+            style="padding: 20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-sm btn-primary active">All</button>
+                <button class="btn btn-sm btn-outline">Security</button>
+                <button class="btn btn-sm btn-outline">Energy</button>
+                <button class="btn btn-sm btn-outline">System</button>
+            </div>
+            <button class="btn btn-sm" style="color: #aaa;"><i class="fas fa-check-double"></i> Mark all read</button>
+        </div>
+
+        <!-- Timeline -->
+        <div class="notification-timeline" style="padding: 30px;">
+
+            <!-- Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-icon warning">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="timeline-content glass-panel" style="padding: 20px; border: 1px solid rgba(255,193,7,0.2);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <h4 style="margin: 0; color: #ffc107;">Unstable Input Detected</h4>
+                        <span style="font-size: 0.8rem; color: #888;">2 mins ago</span>
+                    </div>
+                    <p style="color: #ccc; margin-bottom: 10px;">Rapid fluctuation in solar voltage input [12V -> 4V].
+                        System automatically stabilized load.</p>
+                    <button class="btn btn-sm btn-outline" style="font-size: 0.8rem;">View Diagnostics</button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-icon success">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="timeline-content glass-panel" style="padding: 20px; border: 1px solid rgba(40,167,69,0.2);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <h4 style="margin: 0; color: #28a745;">Firmware Updated</h4>
+                        <span style="font-size: 0.8rem; color: #888;">2 hours ago</span>
+                    </div>
+                    <p style="color: #ccc; margin-bottom: 0;">Successfully installed Security Patch v2.4.1 for PMIC
+                        Controller.</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-item">
+                <div class="timeline-icon info">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="timeline-content glass-panel" style="padding: 20px; border: 1px solid rgba(0,229,255,0.2);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <h4 style="margin: 0; color: #00e5ff;">Data Sync Complete</h4>
+                        <span style="font-size: 0.8rem; color: #888;">5 hours ago</span>
+                    </div>
+                    <p style="color: #ccc; margin-bottom: 0;">Daily usage data synced to EnergyCloud. 45MB uploaded.</p>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="timeline-item">
+                <div class="timeline-icon danger">
+                    <i class="fas fa-thermometer-half"></i>
+                </div>
+                <div class="timeline-content glass-panel"
+                    style="padding: 20px; border: 1px solid rgba(255,0,85,0.2); opacity: 0.7;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <h4 style="margin: 0; color: #ff0055;">High Temperature Warning</h4>
+                        <span style="font-size: 0.8rem; color: #888;">Yesterday</span>
+                    </div>
+                    <p style="color: #ccc; margin-bottom: 10px;">Device reached 45°C during fast charging. Cooling
+                        protocol activated.</p>
+                    <span style="font-size: 0.8rem; color: #28a745;"><i class="fas fa-check"></i> Resolved</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .notification-timeline {
+        position: relative;
+    }
+
+    .notification-timeline::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        top: 0;
+        bottom: 0;
+        left: 50px;
+    }
+
+    .timeline-item {
+        margin-bottom: 40px;
+        position: relative;
+        padding-left: 80px;
+    }
+
+    .timeline-icon {
+        position: absolute;
+        left: 25px;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        background: #222;
+        border: 2px solid #555;
+        z-index: 1;
+    }
+
+    .timeline-icon.warning {
+        border-color: #ffc107;
+        color: #ffc107;
+        box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
+    }
+
+    .timeline-icon.success {
+        border-color: #28a745;
+        color: #28a745;
+        box-shadow: 0 0 15px rgba(40, 167, 69, 0.2);
+    }
+
+    .timeline-icon.info {
+        border-color: #00e5ff;
+        color: #00e5ff;
+        box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    }
+
+    .timeline-icon.danger {
+        border-color: #ff0055;
+        color: #ff0055;
+        box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    }
+
+    .btn-sm {
+        padding: 5px 15px;
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}

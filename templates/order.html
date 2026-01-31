@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 600px;">
+    <h1>Pre-Order ENERGYNEST</h1>
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <h3>Customer Details</h3>
+            <input type="text" name="customer_name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="tel" name="mobile_number" placeholder="Mobile Number" required>
+            <textarea name="delivery_address" placeholder="Delivery Address" rows="3" required></textarea>
+
+            <h3 style="margin-top: 30px;">Device Details</h3>
+            <select name="phone_brand" required>
+                <option value="" disabled selected>Select Phone Brand</option>
+                <option value="Apple">Apple</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Google">Google</option>
+                <option value="OnePlus">OnePlus</option>
+            </select>
+            <input type="text" name="phone_model" placeholder="Model (e.g., iPhone 15 Pro)" required>
+
+            <h3 style="margin-top: 30px;">Case Customization</h3>
+            <select name="case_color" required>
+                <option value="" disabled selected>Select Color</option>
+                <option value="Midnight Black">Midnight Black</option>
+                <option value="Neon Blue">Neon Blue</option>
+                <option value="Solar Gold">Solar Gold</option>
+                <option value="Cyber Silver">Cyber Silver</option>
+            </select>
+
+            <select name="protection_level" required>
+                <option value="Normal">Normal Protection</option>
+                <option value="Heavy">Heavy Duty (+$10)</option>
+                <option value="Extreme">Extreme Armor (+$25)</option>
+            </select>
+
+            <input type="number" name="quantity" value="1" min="1" required>
+
+            <button type="submit">Place Pre-Order</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

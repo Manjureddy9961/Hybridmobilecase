@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero"
+    style="background: radial-gradient(circle at center, rgba(26, 26, 46, 0.9) 0%, #0a0a12 100%), url('{% static "
+    img/mockup_new.png" %}') no-repeat center center/cover;">
+    <div style="background: rgba(0,0,0,0.6); padding: 40px; border-radius: 20px; backdrop-filter: blur(5px);">
+        <h1>Power Your Life</h1>
+        <p>The World's First Hybrid Self-Charging Phone Case. Solar. Acoustic. Piezoelectric. Thermoelectric.</p>
+        <div class="cta-buttons" style="justify-content: center;">
+            <a href="{% url 'technology' %}" class="btn btn-outline">Explore Technology</a>
+            <a href="{% url 'order' %}" class="btn btn-primary">Order Case</a>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Section -->
+<section class="container" style="padding: 100px 0;">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Why Choose <span
+            style="color: var(--primary-color);">ENERGYNEST</span>?</h2>
+
+    <div class="glass-panel" style="overflow-x: auto;">
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding-left: 40px;">Feature</th>
+                    <th style="color: #888;">Standard Case</th>
+                    <th
+                        style="color: var(--primary-color); font-size: 1.5rem; text-shadow: 0 0 10px var(--primary-color);">
+                        ENERGYNEST</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="comparison-row">
+                    <td>Self-Charging Capability</td>
+                    <td><i class="fas fa-times cross-icon feature-icon"></i></td>
+                    <td><i class="fas fa-check check-icon feature-icon"></i></td>
+                </tr>
+                <tr class="comparison-row">
+                    <td>Battery Extension</td>
+                    <td>0%</td>
+                    <td><span style="color: var(--success-color); font-weight: bold;">+200%</span></td>
+                </tr>
+                <tr class="comparison-row">
+                    <td>Harvesting Tech</td>
+                    <td>None</td>
+                    <td>Solar, Acoustic, Piezo, Thermal</td>
+                </tr>
+                <tr class="comparison-row">
+                    <td>Eco-Friendly Material</td>
+                    <td><i class="fas fa-times cross-icon feature-icon"></i></td>
+                    <td><i class="fas fa-check check-icon feature-icon"></i></td>
+                </tr>
+                <tr class="comparison-row">
+                    <td>Price</td>
+                    <td>$3 - $5</td>
+                    <td>$40 (Premium Value)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Technology Showcase Section -->
+<section class="container" style="padding: 50px 0;">
+    <h2
+        style="text-align: center; font-size: 2.5rem; margin-bottom: 50px; text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);">
+        Advanced <span style="color: var(--primary-color);">Architecture</span>
+    </h2>
+
+    <div style="display: flex; flex-direction: column; gap: 80px;">
+
+        <!-- System Diagram -->
+        <div class="glass-panel"
+            style="padding: 40px; position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div
+                style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: var(--primary-color); filter: blur(100px); opacity: 0.3; border-radius: 50%;">
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #fff;">Hybrid Energy System</h3>
+                    <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                        Our proprietary Power Management IC intelligently draws energy from multiple sources
+                        simultaneously.
+                        Whether it's the sun, your voice, ambient heat, or your movement, ENERGYNEST converts it all
+                        into usable power.
+                    </p>
+                    <ul style="color: #aaa; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-bolt"
+                                style="color: var(--primary-color); width: 20px;"></i> Multi-source Input Regulation
+                        </li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-microchip"
+                                style="color: var(--primary-color); width: 20px;"></i> Smart Load Balancing</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-wifi"
+                                style="color: var(--primary-color); width: 20px;"></i> Qi Wireless Output</li>
+                    </ul>
+                </div>
+                <div style="flex: 1.5; min-width: 300px; text-align: center;">
+                    <img src="{% static 'img/system_diagram.png' %}" alt="System Architecture Diagram"
+                        style="width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer Breakdown -->
+        <div class="glass-panel"
+            style="padding: 40px; position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div
+                style="position: absolute; bottom: -50px; left: -50px; width: 150px; height: 150px; background: var(--secondary-color, #ff0055); filter: blur(100px); opacity: 0.2; border-radius: 50%;">
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 40px;">
+                <div style="flex: 1.5; min-width: 300px; text-align: center;">
+                    <img src="{% static 'img/layer_structure.png' %}" alt="Internal Layer Structure"
+                        style="width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #fff;">Inside the Innovation</h3>
+                    <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                        Ultra-compact engineering allows us to stack five distinct layers of technology into a form
+                        factor barely thicker than a standard case.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center;">
+                            <span style="display: block; font-size: 0.8rem; color: #888;">Top Layer</span>
+                            <span style="color: #fff;">Thin Solar Panel</span>
+                        </div>
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center;">
+                            <span style="display: block; font-size: 0.8rem; color: #888;">Core</span>
+                            <span style="color: #fff;">Power Mgmt Module</span>
+                        </div>
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center;">
+                            <span style="display: block; font-size: 0.8rem; color: #888;">Base</span>
+                            <span style="color: #fff;">Qi Wireless Coil</span>
+                        </div>
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center;">
+                            <span style="display: block; font-size: 0.8rem; color: #888;">Transducers</span>
+                            <span style="color: #fff;">Piezo & Acoustic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</section>
+
+<!-- Next-Gen Features Section -->
+<section class="container" style="padding: 50px 0;">
+    <h2
+        style="text-align: center; font-size: 2.5rem; margin-bottom: 50px; text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);">
+        Intelligent <span style="color: var(--primary-color);">Ecosystem</span>
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+
+        <!-- Smart Alerts -->
+        <div class="glass-panel" style="padding: 30px; transition: transform 0.3s ease;">
+            <div
+                style="width: 60px; height: 60px; background: rgba(255, 193, 7, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fas fa-bell" style="font-size: 1.5rem; color: #ffc107;"></i>
+            </div>
+            <h3 style="margin-bottom: 15px; color: #fff;">Smart Alerts</h3>
+            <ul style="list-style: none; padding: 0; color: #ccc;">
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-exclamation-triangle" style="color: #ffc107; font-size: 0.8rem;"></i> Low Power
+                    Warning
+                </li>
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-bolt" style="color: #ffc107; font-size: 0.8rem;"></i> Unstable Input Alert
+                </li>
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-thermometer-half" style="color: #ffc107; font-size: 0.8rem;"></i> Over-temp/Voltage
+                </li>
+            </ul>
+        </div>
+
+        <!-- IoT Monitoring -->
+        <div class="glass-panel" style="padding: 30px; transition: transform 0.3s ease;">
+            <div
+                style="width: 60px; height: 60px; background: rgba(0, 242, 254, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fas fa-network-wired" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+            </div>
+            <h3 style="margin-bottom: 15px; color: #fff;">IoT Monitoring</h3>
+            <ul style="list-style: none; padding: 0; color: #ccc;">
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-mobile-alt" style="color: var(--primary-color); font-size: 0.8rem;"></i> Remote
+                    Status View
+                </li>
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-cloud" style="color: var(--primary-color); font-size: 0.8rem;"></i> Cloud Data
+                    Storage
+                </li>
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-sync" style="color: var(--primary-color); font-size: 0.8rem;"></i> Real-time
+                    Updates
+                </li>
+            </ul>
+        </div>
+
+        <!-- User Profiles -->
+        <div class="glass-panel" style="padding: 30px; transition: transform 0.3s ease;">
+            <div
+                style="width: 60px; height: 60px; background: rgba(255, 0, 85, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fas fa-users" style="font-size: 1.5rem; color: #ff0055;"></i>
+            </div>
+            <h3 style="margin-bottom: 15px; color: #fff;">User Management</h3>
+            <ul style="list-style: none; padding: 0; color: #ccc;">
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-laptop" style="color: #ff0055; font-size: 0.8rem;"></i> Multi-device Support
+                </li>
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-chart-line" style="color: #ff0055; font-size: 0.8rem;"></i> Session Tracking
+                </li>
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-puzzle-piece" style="color: #ff0055; font-size: 0.8rem;"></i> Compatibility Info
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sustainability -->
+        <div class="glass-panel" style="padding: 30px; transition: transform 0.3s ease;">
+            <div
+                style="width: 60px; height: 60px; background: rgba(40, 167, 69, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fas fa-leaf" style="font-size: 1.5rem; color: #28a745;"></i>
+            </div>
+            <h3 style="margin-bottom: 15px; color: #fff;">Impact Metrics</h3>
+            <ul style="list-style: none; padding: 0; color: #ccc;">
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-smog" style="color: #28a745; font-size: 0.8rem;"></i> CO₂ Reduction Est.
+                </li>
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-solar-panel" style="color: #28a745; font-size: 0.8rem;"></i> Green Energy Usage
+                </li>
+                <li style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-star" style="color: #28a745; font-size: 0.8rem;"></i> Green Score Display
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<section class="container" style="text-align: center; padding: 100px 0;">
+    <div
+        style="font-size: 5rem; margin-bottom: 30px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+        <div class="glass-panel" style="padding: 30px; text-align: center; width: 150px;">
+            <i class="fas fa-solar-panel" style="color: #ffeb3b; font-size: 3rem; margin-bottom: 15px;"></i>
+            <h4 style="margin: 0;">Solar</h4>
+        </div>
+        <div class="glass-panel" style="padding: 30px; text-align: center; width: 150px;">
+            <i class="fas fa-volume-up" style="color: #00e5ff; font-size: 3rem; margin-bottom: 15px;"></i>
+            <h4 style="margin: 0;">Acoustic</h4>
+        </div>
+        <div class="glass-panel" style="padding: 30px; text-align: center; width: 150px;">
+            <i class="fas fa-running" style="color: #ff0055; font-size: 3rem; margin-bottom: 15px;"></i>
+            <h4 style="margin: 0;">Kinetic</h4>
+        </div>
+        <div class="glass-panel" style="padding: 30px; text-align: center; width: 150px;">
+            <i class="fas fa-fire" style="color: #ff9800; font-size: 3rem; margin-bottom: 15px;"></i>
+            <h4 style="margin: 0;">Thermal</h4>
+        </div>
+    </div>
+    <h2>Always On. Always Charged.</h2>
+    <p style="max-width: 600px; margin: 20px auto; color: #aaa;">
+        ENERGYNEST combines four advanced energy harvesting technologies into a sleek,
+        durable case that keeps your smartphone charged wherever you are.
+    </p>
+
+    <div style="margin-top: 50px;">
+        <img src="{% static 'img/mockup_new.png' %}" alt="Product Mockup"
+            style="width: 100%; max-width: 800px; border-radius: 20px; box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);">
+    </div>
+</section>
+{% endblock %}

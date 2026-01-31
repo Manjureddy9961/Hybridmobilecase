@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+    <h1>ENERGYBOT AI</h1>
+    <p style="margin-bottom: 20px; color: #aaa;">Ask me anything about ENERGYNEST technology, safety, or ordering.</p>
+
+    <div class="chat-interface"
+        style="background: rgba(0,0,0,0.3); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+
+        <!-- Suggestion Chips -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px;">
+            <button onclick="sendSuggestion('How does it work?')" class="chip"
+                style="white-space: nowrap; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;">
+                <i class="fas fa-lightbulb" style="color: #ffeb3b;"></i> How does it work?
+            </button>
+            <button onclick="sendSuggestion('What is the price?')" class="chip"
+                style="white-space: nowrap; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;">
+                <i class="fas fa-tag" style="color: #28a745;"></i> Price?
+            </button>
+            <button onclick="sendSuggestion('Is it safe?')" class="chip"
+                style="white-space: nowrap; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;">
+                <i class="fas fa-shield-alt" style="color: #00e5ff;"></i> Safety?
+            </button>
+            <button onclick="sendSuggestion('Compatibility?')" class="chip"
+                style="white-space: nowrap; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;">
+                <i class="fas fa-mobile-alt" style="color: #ff0055;"></i> Compatibility?
+            </button>
+        </div>
+
+        <div id="chat-history" style="height: 350px; overflow-y: auto; margin-bottom: 20px; padding-right: 10px;">
+            <div class="message bot" style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                <div
+                    style="background: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; color: #000; flex-shrink: 0;">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bubble"
+                    style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 0 15px 15px 15px; max-width: 80%;">
+                    Hello! I'm ENERGYBOT. I can explain how our hybrid self-charging technology works or help you with
+                    your order. What would you like to know?
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area" style="display: flex; gap: 10px; position: relative;">
+            <input type="text" id="user-input" placeholder="Type your question..."
+                style="margin: 0; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding-right: 50px;">
+            <button onclick="sendMessage()" id="send-btn"
+                style="width: 50px; margin: 0; padding: 0; position: absolute; right: 5px; top: 5px; bottom: 5px; border-radius: 5px;"><i
+                    class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatHistory = document.getElementById('chat-history');
+    const userInput = document.getElementById('user-input');
+
+    userInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendSuggestion(text) {
+        userInput.value = text;
+        sendMessage();
+    }
+
+    async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // Add User Message
+        addMessage(message, 'user');
+        userInput.value = '';
+
+        // Add Loading Indicator
+        const loadingId = addLoadingIndicator();
+
+        try {
+            const response = await fetch('/chatbot/response/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+
+            // Remove Loading Indicator
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) loadingEl.remove();
+
+            // Add Bot Response
+            if (data.response) {
+                addMessage(data.response, 'bot');
+            } else {
+                addMessage("I'm having trouble connecting to my brain right now. Please try again.", 'bot');
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) loadingEl.remove();
+            addMessage("Network error. Please check your connection.", 'bot');
+        }
+    }
+
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${sender}`;
+        msgDiv.style.marginBottom = '15px';
+        msgDiv.style.display = 'flex';
+        msgDiv.style.alignItems = 'flex-start';
+
+        let content = '';
+        if (sender === 'bot') {
+            content = `
+                <div style="background: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; color: #000; flex-shrink: 0;">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bubble" style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 0 15px 15px 15px; max-width: 80%; line-height: 1.5;">${text}</div>
+            `;
+        } else {
+            msgDiv.style.flexDirection = 'row-reverse';
+            content = `
+                <div class="bubble" style="background: var(--primary-color); color: #000; padding: 15px; border-radius: 15px 0 15px 15px; max-width: 80%; text-align: left;">${text}</div>
+            `;
+        }
+
+        msgDiv.innerHTML = content;
+        chatHistory.appendChild(msgDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function addLoadingIndicator() {
+        const id = 'loading-' + Date.now();
+        const msgDiv = document.createElement('div');
+        msgDiv.id = id;
+        msgDiv.className = 'message bot';
+        msgDiv.style.marginBottom = '15px';
+        msgDiv.style.display = 'flex';
+        msgDiv.style.alignItems = 'flex-start';
+        msgDiv.innerHTML = `
+            <div style="background: var(--primary-color); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; color: #000; flex-shrink: 0;">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="bubble" style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 0 15px 15px 15px;">
+                <i class="fas fa-circle-notch fa-spin"></i> Thinking...
+            </div>
+        `;
+        chatHistory.appendChild(msgDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        return id;
+    }
+
+    // CSRF Helper
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
+<style>
+    /* Clean up old style */
+    .message.user {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ENERGYNEST™{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Embed critical CSS or basic resets if needed immediately, but style.css will handle most */
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-bolt"></i> ENERGYNEST™
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'technology' %}">Technology</a></li>
+                <li><a href="{% url 'analytics' %}">Analytics</a></li>
+                <li><a href="{% url 'battery' %}">Battery</a></li>
+                <li><a href="{% url 'chatbot' %}">AI Assistant</a></li>
+                <li class="nav-item dropdown" style="position: relative;">
+                    <a href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge badge-danger" id="notification-count"
+                            style="display: none; position: absolute; top: -5px; right: -5px; font-size: 0.6rem; background: red; color: white; border-radius: 50%; padding: 2px 5px;">0</span>
+                    </a>
+                    <div class="dropdown-menu glass-panel" aria-labelledby="notificationDropdown"
+                        style="position: absolute; right: 0; width: 300px; padding: 10px; display: none; flex-direction: column; gap: 10px; background: rgba(20,20,30,0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; z-index: 1000;">
+                        <h6
+                            style="color: #fff; margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">
+                            Smart Alerts</h6>
+                        <div id="notification-list" style="max-height: 200px; overflow-y: auto;">
+                            <!-- Alerts will be injected here -->
+                            <p style="color: #aaa; font-size: 0.8rem;">No new alerts</p>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/profile/"><i class="fas fa-user-circle"></i> Profile</a></li>
+                <li><a href="{% url 'admin_order_dashboard' %}">Orders</a></li>
+                <li><a href="{% url 'order' %}" class="btn-order">Order Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bell = document.getElementById('notificationDropdown');
+            const menu = bell.nextElementSibling;
+            const countBadge = document.getElementById('notification-count');
+            const list = document.getElementById('notification-list');
+
+            bell.addEventListener('click', function (e) {
+                e.preventDefault();
+                menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+                // Reset count on open
+                if (menu.style.display === 'flex') {
+                    countBadge.style.display = 'none';
+                    countBadge.textContent = '0';
+                }
+            });
+
+            // Close on click outside
+            document.addEventListener('click', function (e) {
+                if (!bell.contains(e.target) && !menu.contains(e.target)) {
+                    menu.style.display = 'none';
+                }
+            });
+
+            // Simulate Smart Alerts
+            const possibleAlerts = [
+                { icon: 'fa-exclamation-triangle', color: '#ffc107', text: 'Unstable Energy Input (Solar)' },
+                { icon: 'fa-bolt', color: '#00e5ff', text: 'Over-voltage protected' },
+                { icon: 'fa-battery-quarter', color: '#ff0055', text: 'Battery Low (<20%)' },
+                { icon: 'fa-check-circle', color: '#28a745', text: 'Optimization Complete' }
+            ];
+
+            function addAlert() {
+                const randomAlert = possibleAlerts[Math.floor(Math.random() * possibleAlerts.length)];
+                const alertItem = document.createElement('div');
+                alertItem.style.cssText = 'padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #ddd;';
+                alertItem.innerHTML = `<i class="fas ${randomAlert.icon}" style="color: ${randomAlert.color};"></i> ${randomAlert.text}`;
+
+                // Remove empty message
+                if (list.querySelector('p')) list.innerHTML = '';
+
+                list.prepend(alertItem);
+
+                // Update Badge
+                if (menu.style.display !== 'flex') {
+                    countBadge.style.display = 'block';
+                    countBadge.textContent = parseInt(countBadge.textContent) + 1;
+                }
+            }
+
+            // Trigger random alerts
+            setTimeout(addAlert, 2000);
+            setInterval(() => {
+                if (Math.random() > 0.7) addAlert();
+            }, 10000);
+        });
+    </script>
+
+
+    <main>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ENERGYNEST™. Hybrid Self-Charging Technology. Research Concept.</p>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}?v=1.2"></script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
